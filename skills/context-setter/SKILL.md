@@ -7,6 +7,16 @@ description: Generate comprehensive context-setting markdown files for coding ta
 
 Creates context-setting markdown files that transform vague user requests into comprehensive, structured prompts for coding tasks. Output files follow proven patterns: ROLE definition, CONSTRAINTS (locked decisions), STYLE guidelines, ordered file reading lists, and numbered tasks with clear deliverables.
 
+## How to Use
+
+Once the context file is generated, start a fresh Claude Code conversation and reference the file in your first message:
+
+```
+Read /path/to/context-file.md and execute the tasks
+```
+
+This gives Claude a clean context window with all necessary structure, constraints, and task sequencing upfront.
+
 ---
 
 ## Process
