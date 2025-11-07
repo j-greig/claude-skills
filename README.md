@@ -71,7 +71,7 @@ ln -s $(pwd)/claude-skills/skills/web-browser ~/.claude/skills/web-browser
 
 ## Usage
 
-Skills appear automatically in Claude Code once installed. Claude will invoke them proactively when relevant to the task.
+Skills appear automatically in Claude Code once installed (restart Claude Code if skills don't appear). Claude will invoke them proactively when relevant to the task.
 
 ### Manual Invocation
 

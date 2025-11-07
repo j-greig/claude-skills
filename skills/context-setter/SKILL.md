@@ -65,51 +65,59 @@ This gives Claude a clean context window with all necessary structure, constrain
 
 **Document Structure Template:**
 
-```
-ROLE
+```markdown
+# ROLE
+
 [Single line: persona + responsibility for this specific task]
 
-MISSION
+## MISSION
+
 [2-4 sentence non-technical sketch of what you're building/fixing and why]
 [Answer: What's the goal? What's already done? What needs doing?]
 [Keep it lean - business/user value, not implementation details]
 
-CONSTRAINTS
+## CONSTRAINTS
+
 [Numbered list of locked decisions, constraints, specs that must not change]
 [Source these from AGENTS.md, PRDs, existing specs - never invent]
 
-STYLE
+## STYLE
+
 British English. Concise, shippable. When proposing edits: filename + bullets (+ line numbers if needed).
 [Add task-specific style notes if relevant]
 Never invent spec; if missing, mark "out of scope for v0.1".
 
-ORDER OF FILES (read in this order)
+## ORDER OF FILES (read in this order)
+
 1) [absolute path to first file]
 2) [absolute path to second file]
 ...
 
-TASK 1 — [Clear task name]
+## TASK 1 — [Clear task name]
+
 [Clear objective with specific deliverables]
 [Sub-steps if complex, each actionable]
 [Expected output format if relevant]
 
-TASK 2 — [Next task name]
+## TASK 2 — [Next task name]
+
 [Continue sequential tasks...]
 
 [Include testing/verification tasks if code changes involved]
 
-OUTPUT FORMAT
+## OUTPUT FORMAT
+
 [Specify expected format: compact results, bullets, pass/fail tables, fixture contents, etc.]
 [Set expectation for verbosity - "compact", "exact contents", "no extra prose"]
 
 ---
 
-P.S. Meta Notes
+## P.S. Meta Notes
 
 [2-4 sentences explaining key decisions made while structuring this context doc]
 [Surface interesting tradeoffs, assumptions, or reasoning about task sequencing/scope]
 [Examples: why certain files are prioritized, why tasks are ordered this way, what's intentionally deferred]
-[Think: what would the user find valuable to know about how you approached this?]
+[Think: what would the user find valuable to know about how you approached this? Especially if they skim read the document.]
 ```
 
 **Section Guidelines:**
@@ -190,31 +198,37 @@ P.S. Meta Notes
 **Generated context file:**
 
 ```markdown
-ROLE
+# ROLE
+
 You are the DevOps Engineer for Cloudflare Workers deployment and observability.
 
-MISSION
+## MISSION
+
 Build secure MCP server integration with Cloudflare Workers mailbox. MCP servers (running in Claude/ChatGPT) need to post events to our Worker using HMAC authentication. Worker already validates and writes to GitHub - we need the MCP side implemented with proper handshake and observability via Workers Logs.
 
-CONSTRAINTS
+## CONSTRAINTS
+
 1) HMAC-SHA256 handshake for secure MCP → Worker communication
 2) 300s replay window for request validation
 3) 2 MB binary payload limit
 4) console.log statements visible in Workers Logs
 5) Environment vars via wrangler.toml or dashboard secrets
 
-STYLE
+## STYLE
+
 British English. Concise, shippable. When proposing edits: filename + bullets.
 Never invent spec; if missing, mark "out of scope for v0.1".
 
-ORDER OF FILES (read in this order)
+## ORDER OF FILES (read in this order)
+
 1) /Users/james/Repos/wibandwob-mailbox/AGENTS.md
 2) /Users/james/Repos/wibandwob-mailbox/workings/mailbox-brief-v01.md
 3) /Users/james/Repos/wibandwob-mailbox/README.md
 4) /Users/james/Repos/wibandwob-mailbox/tests/
 5) https://developers.cloudflare.com/workers/observability/logs/workers-logs/
 
-TASK 1 — Implement HMAC handshake validation
+## TASK 1 — Implement HMAC handshake validation
+
 Add request signature verification:
 - Extract signature from Authorization header
 - Compute HMAC-SHA256 of request body with shared secret
@@ -222,21 +236,24 @@ Add request signature verification:
 - Return 401 if validation fails
 - Return 200 with {status: "authorized"} if valid
 
-TASK 2 — Setup Cloudflare Workers Logs
+## TASK 2 — Setup Cloudflare Workers Logs
+
 Configure logging per Cloudflare docs:
 - Enable Workers Logs in dashboard
 - Add strategic console.log statements for debugging
 - Test that logs appear in real-time stream
 - Document log access for team
 
-TASK 3 — Test handshake locally
+## TASK 3 — Test handshake locally
+
 Create test script:
 - Generate valid HMAC signatures
 - Test replay window enforcement
 - Verify 401 responses for invalid signatures
 - Verify 200 responses for valid requests
 
-OUTPUT FORMAT
+## OUTPUT FORMAT
+
 Compact results. For each task, confirm completion with:
 - Filename + line numbers for code changes
 - Test results (PASS/FAIL)
@@ -244,7 +261,7 @@ Compact results. For each task, confirm completion with:
 
 ---
 
-P.S. Meta Notes
+## P.S. Meta Notes
 
 [2-4 sentences explaining key decisions made while structuring this context doc]
 [Surface interesting tradeoffs, assumptions, or reasoning about task sequencing/scope]
@@ -259,56 +276,66 @@ P.S. Meta Notes
 **Generated context file:**
 
 ```markdown
-ROLE
+# ROLE
+
 You are the Lead Engineer for Symbient Digit export API.
 
-MISSION
+## MISSION
+
 Build a public JSON export of the latest 50 posts for consumption by external apps. Posts are stored as markdown files with front matter - we need to filter public-only, extract clean text (stripping code/quotes), and serve with proper ETag caching. This powers the "what's new" feed for subscribers.
 
-CONSTRAINTS
+## CONSTRAINTS
+
 1) N=50 latest public-visibility posts only
 2) ETag = SHA-256 hash of JSON response body
 3) Monotonic `updated` timestamp field required
 4) Self-authored permalink fallback if in_reply_to null
 5) Text extraction drops fenced code blocks and `> @` quote lines
 
-STYLE
+## STYLE
+
 British English. Concise, shippable. When proposing edits: filename + bullets.
 Never invent spec; if missing, mark "out of scope for v0.1".
 
-ORDER OF FILES (read in this order)
+## ORDER OF FILES (read in this order)
+
 1) /Users/james/Repos/wibandwob-mailbox/AGENTS.md
 2) /Users/james/Repos/wibandwob-mailbox/workings/digits-v0.1-prd.md
 3) /Users/james/Repos/wibandwob-mailbox/src/
 
-TASK 1 — Query latest N=50 public posts
+## TASK 1 — Query latest N=50 public posts
+
 Implement query logic:
 - Filter by front matter `visibility: public`
 - Sort by filename timestamp DESC
 - Limit to 50 results
 - Return array of post objects
 
-TASK 2 — Generate Digit JSON format
+## TASK 2 — Generate Digit JSON format
+
 Transform each post to Digit schema:
 - Extract title, body, permalink
 - Strip fenced code (```...```) and quote lines (> @...)
 - Add monotonic `updated` timestamp
 - Use self-authored permalink if no in_reply_to
 
-TASK 3 — Compute SHA-256 ETag
+## TASK 3 — Compute SHA-256 ETag
+
 Hash the JSON response:
 - Serialize JSON deterministically
 - Compute SHA-256 hash
 - Return in ETag header as `sha256:[hash]`
 
-TASK 4 — Verifiable test
+## TASK 4 — Verifiable test
+
 Create test:
 - Generate 60 posts (30 public, 30 private)
 - Verify export returns exactly 50 public posts
 - Verify ETag matches SHA-256 of response
 - Verify text extraction drops code/quotes correctly
 
-OUTPUT FORMAT
+## OUTPUT FORMAT
+
 For each task:
 - Filename + line numbers for implementation
 - Test output showing PASS/FAIL
@@ -316,7 +343,7 @@ For each task:
 
 ---
 
-P.S. Meta Notes
+## P.S. Meta Notes
 
 [2-4 sentences explaining key decisions made while structuring this context doc]
 [Surface interesting tradeoffs, assumptions, or reasoning about task sequencing/scope]

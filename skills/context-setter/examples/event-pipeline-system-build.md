@@ -38,6 +38,7 @@ Ingest AGENTS.md. Echo back the five locked decisions verbatim as a checklist an
 ## TASK 2 — Context Digest (one page)
 
 Read api-ingress-v0.1-prd.md, digest-processor-v0.1-prd.md, public-export-v0.1-prd.md.
+
 Output:
 - Invariants (from API v0.1)
 - Responsibilities per doc
@@ -47,34 +48,58 @@ Output:
 ## TASK 3 — Diagram parity
 
 Read system-flow.mmd.
+
 List any mismatches vs the three PRDs for:
 - Duplicate path returning `content_hash`
 - UTC scheduling labels
 - Comment refresh marked "optional / supplemental"
+
 For each mismatch, propose the smallest edit (filename + line nums).
 
 ## TASK 4 — Event patterns validation
 
 Read event-samples.md.
+
 Validate processing, location, journey (multi-stop + single-hop):
 - method key consistent
 - chronological stops
 - newline normalisation noted
 - world enum `example-world`
+
 Return PASS/FAIL per sample with exact corrections if needed.
 
 ## TASK 5 — Readiness Gate (PASS/FAIL table)
 
 Verify each item with file+line reference:
-- Ingress: ULID enforcement; HMAC replay window 300s; duplicate response includes path + content_hash; 2 MB binary limit; \r\n→\n hash normalisation
-- Digest: 00:05 UTC nightly; deterministic ordering; PR title "Daily Digest — YYYY-MM-DD"; in_reply_to normalisation; refresh optional & supplemental
-- Export: N=50 export; text extraction drops fenced code + `> @` lines; ETag=SHA-256 of JSON; monotonic `updated`; public-only via front matter; self-authored permalink fallback
+
+**Ingress:**
+- ULID enforcement
+- HMAC replay window 300s
+- Duplicate response includes path + content_hash
+- 2 MB binary limit
+- \r\n→\n hash normalisation
+
+**Digest:**
+- 00:05 UTC nightly
+- Deterministic ordering
+- PR title "Daily Digest — YYYY-MM-DD"
+- in_reply_to normalisation
+- Refresh optional & supplemental
+
+**Export:**
+- N=50 export
+- Text extraction drops fenced code + `> @` lines
+- ETag=SHA-256 of JSON
+- Monotonic `updated`
+- Public-only via front matter
+- Self-authored permalink fallback
 
 ## TASK 6 — Fixture Pack (names + contents)
 
 Generate minimal fixtures:
 
-A) happy_path_event.json (HTTPS Inbox body)
+**A) happy_path_event.json** (HTTPS Inbox body)
+```json
 {
   "event": {
     "specversion": "1.0",
@@ -93,23 +118,32 @@ A) happy_path_event.json (HTTPS Inbox body)
     }
   }
 }
+```
 
-Expected file path:
-events/2025/11/03/2025-11-03T09-15-00Z--first-entry.md
-Expected front matter keys present (ULID, visibility, content_hash, canonical_url rule respected).
+Expected file path: `events/2025/11/03/2025-11-03T09-15-00Z--first-entry.md`
 
-B) duplicate_post.json (same logical content)
+Expected front matter keys present: ULID, visibility, content_hash, canonical_url rule respected.
+
+**B) duplicate_post.json** (same logical content)
+
 Expected HTTP 200 body:
+```json
 { "status":"duplicate", "path":"events/2025/11/03/2025-11-03T09-15-00Z--first-entry.md", "content_hash":"sha256:..." }
+```
 
-C) too_large_binary.json (>2 MB)
+**C) too_large_binary.json** (>2 MB)
+
 Expected HTTP 400 body:
+```json
 { "error":"bad_request", "reason":"binary-too-large" }
+```
 
-D) private_event.json (visibility private)
+**D) private_event.json** (visibility private)
+
 Assert: present in repo; excluded from public export and nightly digest.
 
-E) reply_event.json (comment against canonical page)
+**E) reply_event.json** (comment against canonical page)
+
 Assert: appears under the correct page after build; in_reply_to comparison normalised (HTTPS, no trailing slash).
 
 ## OUTPUT FORMAT
