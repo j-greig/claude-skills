@@ -1,4 +1,9 @@
-This is a collection of my favourite skills for Claude / Claude Code.
+Custom Claude Code skills:
+- context-setter: transforms vague requests into structured context documents with constraints, file order, and tasks
+- web-browser: CDP tools for Chrome automation
 
-Never use emoji in commit messages.
-Do not use the word 'just'
+Documentation should use natural, human language with a tl;dr non-technical sketch to introduce complex concepts.
+
+Never use emoji in commit messages, or elsewhere.
+Do not use the word 'just'.
+Avoid hyphens and em-dashes as sentence breaks. Use proper sentences or parentheses instead.
