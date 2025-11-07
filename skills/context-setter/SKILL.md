@@ -1,11 +1,13 @@
 ---
 name: context-setter
-description: Generate comprehensive context-setting markdown files for coding tasks by intelligently exploring codebase and structuring work with ROLE, CONSTRAINTS, STYLE, file reading order, and structured tasks. Use proactively if the user intent suggests a relatively / suitably complex dev task is about to being.
+description: Generate comprehensive context-setting markdown files for coding tasks by intelligently exploring codebase and structuring work with ROLE, CONSTRAINTS, STYLE, file reading order, and structured tasks. Use proactively when the user is starting a complex dev task requiring multiple steps or file reads.
 ---
 
 # Context Setter Skill
 
 Creates context-setting markdown files that transform vague user requests into comprehensive, structured prompts for coding tasks. Output files follow proven patterns: ROLE definition, CONSTRAINTS (locked decisions), STYLE guidelines, ordered file reading lists, and numbered tasks with clear deliverables.
+
+**Primary use:** Extract and sequence constraints from existing docs (PRDs, AGENTS.md, specs) into executable task structure. **Secondary use:** When docs don't exist, explore codebase and ask clarifying questions to build structure from scratch
 
 ## How to Use
 
