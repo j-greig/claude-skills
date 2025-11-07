@@ -6,8 +6,8 @@ Custom Claude Code skills for AI-assisted development workflows.
 
 This repo contains two custom skills for [Claude Code](https://www.anthropic.com/claude/code):
 
-- **context-setter** - Generate comprehensive context-setting markdown files for coding tasks
-- **web-browser** - Remote control Chrome/Chromium via CDP for web automation
+- [**context-setter**](skills/context-setter/SKILL.md) - Generate comprehensive context-setting markdown files for coding tasks
+- [**web-browser**](skills/web-browser/SKILL.md) - Remote control Chrome/Chromium via CDP for web automation
 
 ## Skills
 
