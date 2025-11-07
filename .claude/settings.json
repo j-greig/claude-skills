@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(context-setter)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
