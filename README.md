@@ -15,7 +15,7 @@ This repo contains two custom skills for [Claude Code](https://www.anthropic.com
 
 Transforms vague requests into structured, comprehensive prompts for coding tasks.
 
-**Why this matters:** Spending 5-10 minutes building proper context upfront is a worthwhile investment. A well-structured prompt with locked constraints, ordered file reading, and clear deliverables dramatically improves task completion quality and reduces iteration cycles. Context building is task planning.
+**Why:** Good context = better output. Five minutes structuring constraints, file order, and deliverables upfront beats twenty minutes fixing vague results later.
 
 Creates context files with:
 
