@@ -182,7 +182,7 @@ Never invent spec; if missing, mark "out of scope for v0.1".
 - Examples: `cloudflare-mailbox-mcp-handshake.md`, `pubstack-core-system-build.md`, `digit-export-implementation.md`
 
 **Save Location:**
-`/Users/james/Repos/wibandwob-mailbox/workings/context-setting/`
+`/workspace/project/workings/context-setting/`
 
 **After saving:**
 1. Output the **full absolute path** to the file (so user can click to open)
@@ -223,10 +223,10 @@ Never invent spec; if missing, mark "out of scope for v0.1".
 
 ## ORDER OF FILES (read in this order)
 
-1) /Users/james/Repos/wibandwob-mailbox/AGENTS.md
-2) /Users/james/Repos/wibandwob-mailbox/workings/mailbox-brief-v01.md
-3) /Users/james/Repos/wibandwob-mailbox/README.md
-4) /Users/james/Repos/wibandwob-mailbox/tests/
+1) /workspace/project/AGENTS.md
+2) /workspace/project/workings/mailbox-brief-v01.md
+3) /workspace/project/README.md
+4) /workspace/project/tests/
 5) https://developers.cloudflare.com/workers/observability/logs/workers-logs/
 
 ## TASK 1 — Implement HMAC handshake validation
@@ -301,9 +301,9 @@ Never invent spec; if missing, mark "out of scope for v0.1".
 
 ## ORDER OF FILES (read in this order)
 
-1) /Users/james/Repos/wibandwob-mailbox/AGENTS.md
-2) /Users/james/Repos/wibandwob-mailbox/workings/digits-v0.1-prd.md
-3) /Users/james/Repos/wibandwob-mailbox/src/
+1) /workspace/project/AGENTS.md
+2) /workspace/project/workings/digits-v0.1-prd.md
+3) /workspace/project/src/
 
 ## TASK 1 — Query latest N=50 public posts
 
